@@ -21,6 +21,10 @@ public class V2_inventory {
 		JSONArray jsonArray = new JSONArray();
 
 		try{
+			
+			if(brand == null){
+				return Response.status(400).entity("Please specify a brand for this search!!").build();
+			}
 			Schema308tube dao =  new Schema308tube();
 			jsonArray = dao.queryReturnBrandParts(brand);
 
