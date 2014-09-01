@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 
 import org.codehaus.jettison.json.JSONArray;
 
+import com.sun.istack.internal.Builder;
 import com.youtube.dao.Oracle308tube;
 import com.youtube.utilities.ToJSON;
 
@@ -22,12 +23,13 @@ public class V1_inventory {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnAllPcParts() throws Exception {
+	public Response returnAllPcParts() throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		String returnString = null;
-		
+		// response to be sent back to client
+		Response response = null;
 		try {
 			conn = Oracle308tube.Oracle308tubeConn().getConnection();
 			query = conn.prepareStatement("select * " +
@@ -46,6 +48,8 @@ public class V1_inventory {
 			query.close(); // close the connection!!
 			
 			returnString = jsonArray.toString();
+			
+			response = Response.ok(returnString).build(); // build the Response
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -55,6 +59,6 @@ public class V1_inventory {
 				conn.close();
 			}
 		}
-		return returnString;
+		return response;
 	}
 }
