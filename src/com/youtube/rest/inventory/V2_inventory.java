@@ -114,7 +114,8 @@ public class V2_inventory {
 			ObjectMapper objectMapper = new ObjectMapper();
 			ItemEntry itemEntry = objectMapper.readValue(incomingData, ItemEntry.class);
 
-			int http_code = dao.insertIntoPC_PARTS(itemEntry.PC_PARTS_TITLE,
+			int http_code = dao.insertIntoPC_PARTS(itemEntry.PC_PARTS_PK,
+													itemEntry.PC_PARTS_TITLE,
 													itemEntry.PC_PARTS_CODE, 
 													itemEntry.PC_PARTS_MAKER,
 													itemEntry.PC_PARTS_AVAIL, 
@@ -142,9 +143,11 @@ public class V2_inventory {
 
 
 class ItemEntry {
+	public String PC_PARTS_PK;
 	public String PC_PARTS_TITLE;
 	public String PC_PARTS_CODE;
 	public String PC_PARTS_MAKER;
 	public String PC_PARTS_AVAIL;
-	public String PC_PARTS_DESC;		
+	public String PC_PARTS_DESC;
+	
 }
