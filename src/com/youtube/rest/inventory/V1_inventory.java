@@ -16,7 +16,7 @@ import org.codehaus.jettison.json.JSONArray;
 
 import com.sun.istack.internal.Builder;
 import com.youtube.dao.Oracle308tube;
-import com.youtube.utilities.ToJSON;
+import com.youtube.util.ToJSON;
 
 @Path("/v1/inventory")
 public class V1_inventory {

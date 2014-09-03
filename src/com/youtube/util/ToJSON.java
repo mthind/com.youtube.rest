@@ -1,4 +1,4 @@
-package com.youtube.utilities;
+package com.youtube.util;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
