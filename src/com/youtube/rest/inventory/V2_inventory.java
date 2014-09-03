@@ -1,5 +1,6 @@
 package com.youtube.rest.inventory;
 
+import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -8,9 +9,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import javax.ws.rs.core.Response;
+import javax.xml.ws.WebServiceContext;
+
 
 import com.youtube.dao.Schema308tube;
+
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
@@ -18,6 +23,8 @@ import org.codehaus.jettison.json.JSONArray;
 @Path("/v2/inventory")
 public class V2_inventory {
 
+	@Resource
+	WebServiceContext wsContext;
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response returnBrandParts(@QueryParam ("brand") String brand) throws Exception {
@@ -33,7 +40,8 @@ public class V2_inventory {
 			Schema308tube dao =  new Schema308tube();
 			jsonArray = dao.queryReturnBrandParts(brand);
 
-			returnString = jsonArray.toString();
+			returnString = jsonArray.toString();			
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,6 +81,15 @@ public class V2_inventory {
 
 	}
 
+	/**
+	 * Method to query for an item
+	 * in the PC_PARTS table using
+	 * a @PathParam
+	 * @param brand
+	 * @param item_number
+	 * @return
+	 * @throws Exception
+	 */
 	@Path("/{brand}/{item_number}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -99,6 +116,15 @@ public class V2_inventory {
 	}
 
 
+	/**
+	 * This method will allow you
+	 * to add data to PC_PARTS table 
+	 * using ObjectMapper Jackson 
+	 * class.
+	 * @param incomingData
+	 * @return
+	 * @throws Exception
+	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})	
